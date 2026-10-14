@@ -31,13 +31,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 扫描仓库里的 Markdown 文档，生成 md-index.json 并转成 md-index.js，
+      # index.html 依赖这份清单来列出可选文档。
+      - name: Generate Markdown index
+        run: |
+          node tools/gen-md-index.mjs --root . --out md-index.json
+          node tools/md-index-to-js.mjs --in md-index.json --out md-index.js
+          rm -f md-index.json
+          echo "--- md-index.js ---"
+          head -c 600 md-index.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

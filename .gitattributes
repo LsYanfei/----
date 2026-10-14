@@ -1,0 +1,2 @@
+# 统一按原样处理文本，避免 Windows 换行被改写后影响 Markdown 清单解析
+* -text

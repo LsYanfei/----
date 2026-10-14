@@ -1,2 +1,10 @@
 more/*
 .github/*
+node_modules/*
+
+# 本地测试依赖（tools/test-math.mjs 用到的 marked/katex），不提交
+.mddeps/*
+
+# 部署时由工作流生成，无需提交
+md-index.json
+md-index.js
