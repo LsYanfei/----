@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="cn">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,6 +10,7 @@
             justify-content: center;
             margin-top: 20px;
         }
+
         a {
             margin: 0 10px;
             text-decoration: none;
@@ -17,7 +19,10 @@
         }
     </style>
 </head>
+
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
     <div>
         <a href="./习思想.md">习思想</a>
         <a href="./史纲.md">史纲</a>
@@ -35,5 +40,16 @@
         <a href="./数学概念.md">数学概念</a>
         <a href="./数学解法.md">数学解法</a>
     </div>
+    <div id="app"></div>
+    <script>
+        fetch('./习思想.md')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("app").innerHTML = marked.parse(data);
+            })
+            .catch(error => {
+                console.error("Error fetching the file:", error);
+            });
+    </script>
 </body>
 </html>
